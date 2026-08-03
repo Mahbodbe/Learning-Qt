@@ -9,3 +9,21 @@
 x64/
 Debug/
 Release/
+
+# Qt / QMake / CMake build artifacts
+*.user
+*.user.*
+*.pro.user
+*.pro.user.*
+*.pro.user
+CMakeLists.txt.user
+*.pro.shared
+*.pro.shared.*
+build-*/
+.qmake.stash
+Makefile*
+*.o
+*.a
+*.so
+*.dylib
+*.dll
