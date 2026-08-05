@@ -34,7 +34,7 @@ void MainWindow::setupCoreWidgets() {
 	dateOfBirthLabel = new QLabel("Date Of Birth:");
 	phoneNumberLabel = new QLabel("Phone Number");
 	savePushButton = new QPushButton("Save");
-	newPushButton = new QPushButton("Clear All");
+	clearPushButton = new QPushButton("Clear All");
 	nameLineEdit = new QLineEdit();
 	dateOfBirthEdit = new QDateEdit(QDate::currentDate());
 	phoneNumberLineEdit = new QLineEdit();
@@ -64,7 +64,7 @@ void MainWindow::setupCoreWidgets() {
 	formLayout->addWidget(phoneNumberLineEdit, 2, 1);
 	buttonsLayout->addStretch();
 	buttonsLayout->addWidget(savePushButton);
-	buttonsLayout->addWidget(newPushButton);
+	buttonsLayout->addWidget(clearPushButton);
 
 }
 
@@ -131,7 +131,7 @@ void MainWindow::aboutDialog()
 }
 
 void MainWindow::clearAllRecords() {
-	int status = QMessageBox::question(this, tr("Delete Records ?"), tr("You are about to delete all saved records " "<p>Are you sure you want to delete all records "), QMessageBox::No | QMessageBox::Default, QMessageBox::No | QMessageBox::Escape, QMessageBox::NoButton);
+	int status = QMessageBox::question(this, tr("Delete Records ?"), tr("You are about to delete all saved records " "<p>Are you sure you want to delete all records "), QMessageBox::Yes | QMessageBox::Default, QMessageBox::No | QMessageBox::Escape, QMessageBox::NoButton);
 	if (status ==  QMessageBox::Yes) {
 		return model->clear();
 		/*Count = model->rowCount();

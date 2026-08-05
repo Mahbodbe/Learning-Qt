@@ -42,7 +42,6 @@ private:
 	QLabel* phoneNumberLabel;
 	QPushButton* savePushButton;
 	QPushButton* clearPushButton;
-	QPushButton* newPushButton;
 	QLineEdit* nameLineEdit;
 	QDateEdit* dateOfBirthEdit;
 	QLineEdit* phoneNumberLineEdit;
