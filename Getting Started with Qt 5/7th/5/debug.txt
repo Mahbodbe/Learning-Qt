@@ -8,3 +8,41 @@ Database connection established !
 
 Custom filter: 
 
+Database connection established !
+"1"  :  "Jude"  :  "Sidle"  :  "+14495849555"
+"2"  :  "Brass"  :  "Jim"  :  "+144758849555"
+"4"  :  "Sara"  :  "Sidle"  :  "+14495849555"
+"5"  :  "Brass"  :  "Jim"  :  "+144758849555"
+"7"  :  "Sara"  :  "Sidle"  :  "+14495849555"
+"8"  :  "Jim"  :  "Brass"  :  "+144758849555"
+"10"  :  "Nick"  :  "Stokes"  :  "+443569948"
+
+Custom filter: 
+
+Database connection established !
+"1"  :  "Jude"  :  "Sidle"  :  "+14495849555"
+"2"  :  "Brass"  :  "Jim"  :  "+144758849555"
+"4"  :  "Sara"  :  "Sidle"  :  "+14495849555"
+"5"  :  "Brass"  :  "Jim"  :  "+144758849555"
+"7"  :  "Sara"  :  "Sidle"  :  "+14495849555"
+"8"  :  "Jim"  :  "Brass"  :  "+144758849555"
+"10"  :  "Nick"  :  "Stokes"  :  "+443569948"
+"11"  :  "Nick"  :  "Stokes"  :  "+443569948"
+
+Custom filter: 
+
+"12"  :  "Nick"  :  "Stokes"  :  "+443569948"
+Database connection established !
+"1"  :  "Jude"  :  "Sidle"  :  "+14495849555"
+"2"  :  "Brass"  :  "Jim"  :  "+144758849555"
+"4"  :  "Sara"  :  "Sidle"  :  "+14495849555"
+"5"  :  "Brass"  :  "Jim"  :  "+144758849555"
+"7"  :  "Sara"  :  "Sidle"  :  "+14495849555"
+"8"  :  "Jim"  :  "Brass"  :  "+144758849555"
+"10"  :  "Nick"  :  "Stokes"  :  "+443569948"
+"11"  :  "Nick"  :  "Stokes"  :  "+443569948"
+"12"  :  "Nick"  :  "Stokes"  :  "+443569948"
+
+Custom filter: 
+
+"12"  :  "Nick"  :  "Stokes"  :  "+443569948"
