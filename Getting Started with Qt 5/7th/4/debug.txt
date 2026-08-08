@@ -1,0 +1,9 @@
+Database connection established !
+Number of rows affected:  3
+Number of rows affected:  1
+"Jude"  -  "Sidle"  -  "+14495849555"
+"Brass"  -  "Jim"  -  "+144758849555"
+"Sara"  -  "Sidle"  -  "+14495849555"
+"Brass"  -  "Jim"  -  "+144758849555"
+"Sara"  -  "Sidle"  -  "+14495849555"
+"Jim"  -  "Brass"  -  "+144758849555"
