@@ -35,7 +35,20 @@ It contains code samples, structured exercises, and projects derived from:
 
 ### 📂 Repository Structure
 
-
+- **chapters/**: Hands-on exercises structured by topic:
+  - **01-introduction/**: Standard boilerplate wizard-generated windows
+  - **02-hello-world/**: Basic window layout and label hover stylesheets
+  - **03-basic-widgets/**: QPushButton, QLabel, layouts, grid/form designs
+  - **04-signals-slots/**: Core Qt event linking, slider-dial synchronizations
+  - **05-mainwindow-resources/**: Actions, menus, custom toolbars, active rich text notepad
+  - **06-events-drag-drop/**: Overriding keyboard/mouse events, drag and drop handlers
+  - **07-database-sql/**: QODBC MySQL connections, table models, QTableView display
+- **showcase-projects/**: Main applications:
+  - **record-management-system/**: Spreadsheet-like GUI Record Management System with MySQL sync
+- **docs/**: Architecture notes and implementation logs
+- **.gitignore**: Qt Creator, QMake/CMake, & MSVC build artifact ignores
+- **README.md**: Project documentation (English Version)
+- **README_FA.md**: Project documentation (Persian Version)
 
 ---
 
@@ -125,4 +138,3 @@ A standalone desktop suite located under  demonstrating full framework synergy:
 
 ## 👥 Author
 * **Mahbod BemaniCham** — [@Mahbodbe](https://github.com/Mahbodbe)
-<!-- force update -->
