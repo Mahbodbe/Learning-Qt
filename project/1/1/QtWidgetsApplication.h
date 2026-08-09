@@ -20,6 +20,15 @@
 #include <QTableView>
 #include <QHeaderView>
 #include <QInputDialog>
+#include <QDebug>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QFile>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QTextStream>
+
 
 #include "ui_MainWindow.h"
 
@@ -38,6 +47,7 @@ private:
 
     QLineEdit* nameLineEdit;
     QStandardItemModel* model;
+    bool notSave = false;
     
 
 
@@ -47,4 +57,8 @@ private slots:
     void clearfield();
     void deleteRecord();
     void deleteAll();
+    void ifNew();
+    void writeServer();
+    void openFile();
+    bool checkIfSave();
 };

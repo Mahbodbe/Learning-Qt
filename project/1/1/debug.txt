@@ -1,0 +1,21 @@
+Database connection established!
+QODBCResult::exec: Unable to execute statement: "[Microsoft][ODBC Driver Manager] Function sequence error"
+Insert error at row 0 : "[Microsoft][ODBC Driver Manager] Function sequence error QODBC: Unable to execute statement"
+QODBCResult::exec: Unable to execute statement: "[Microsoft][ODBC Driver Manager] Function sequence error"
+Insert error at row 0 : "[Microsoft][ODBC Driver Manager] Function sequence error QODBC: Unable to execute statement"
+QODBCResult::exec: Unable to execute statement: "[Microsoft][ODBC Driver Manager] Function sequence error"
+Insert error at row 0 : "[Microsoft][ODBC Driver Manager] Function sequence error QODBC: Unable to execute statement"
+Database connection established!
+QODBCResult::exec: Unable to execute statement: "[Microsoft][ODBC Driver Manager] Function sequence error"
+Insert error at row 0 : "[Microsoft][ODBC Driver Manager] Function sequence error QODBC: Unable to execute statement"
+Database connection established!
+QODBCResult::exec: Unable to execute statement: "[Microsoft][ODBC Driver Manager] Function sequence error"
+Insert error at row 0 : "[Microsoft][ODBC Driver Manager] Function sequence error QODBC: Unable to execute statement"
+Database connection established!
+Database connection established!
+QODBCResult::exec: Unable to execute statement: "[Microsoft][ODBC Driver Manager] Function sequence error"
+Insert error at row 0 : "[Microsoft][ODBC Driver Manager] Function sequence error QODBC: Unable to execute statement"
+Database connection established!
+Database connection established!
+Database connection established!
+QWindowsWindow::setGeometry: Unable to set geometry 120x30+851+472 (frame: 136x69+843+441) on QWidgetWindow/"QInputDialogClassWindow" on "\\.\DISPLAY1". Resulting geometry: 218x96+851+472 (frame: 234x135+843+441) margins: 8, 31, 8, 8 minimum size: 218x96 maximum size: 524287x96 MINMAXINFO maxSize=0,0 maxpos=0,0 mintrack=234,135 maxtrack=524303,135)

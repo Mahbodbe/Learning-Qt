@@ -221,7 +221,7 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="actionNew_2"/>
+    <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
@@ -248,7 +248,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionNew_2"/>
+   <addaction name="actionNew"/>
    <addaction name="actionOpen"/>
    <addaction name="separator"/>
    <addaction name="actionDeleteAll"/>
@@ -263,7 +263,7 @@
     <string>ctrl + C</string>
    </property>
   </action>
-  <action name="actionNew_2">
+  <action name="actionNew">
    <property name="icon">
     <iconset>
      <normaloff>../../../Getting Started with Qt 5/5th/6/new.png</normaloff>../../../Getting Started with Qt 5/5th/6/new.png</iconset>
@@ -275,7 +275,7 @@
     <string>&amp;New</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+C</string>
+    <string>Ctrl+N</string>
    </property>
   </action>
   <action name="actionOpen">

@@ -25,7 +25,9 @@ void QtWidgetsApplication::signal() {
 	connect(ui.clearAllButton, &QPushButton::clicked, this, &QtWidgetsApplication::deleteAll);
 	connect(ui.actionDeleteRecord, &QAction::triggered, this, &QtWidgetsApplication::deleteRecord);
 	connect(ui.actionDeleteAll, &QAction::triggered, this, &QtWidgetsApplication::deleteAll);
-	
+	connect(ui.actionNew, &QAction::triggered, this, &QtWidgetsApplication::ifNew);
+	connect(ui.actionSaveAll, &QAction::triggered, this, &QtWidgetsApplication::writeServer);
+	connect(ui.actionOpen, &QAction::triggered, this, &QtWidgetsApplication::openFile);
 }
 
 void QtWidgetsApplication::saveButtonClicked() {
@@ -44,6 +46,7 @@ void QtWidgetsApplication::saveButtonClicked() {
 	ui.appTable->setItem(row, 2, new QTableWidgetItem(ui.phoneNumberLineEdit->text()));
 
 	clearfield();
+	notSave = true;
 	QMessageBox::information(this, tr("RMS System"), tr("Record saved successfully!"));
 }
 
@@ -72,6 +75,7 @@ void QtWidgetsApplication::deleteRecord() {
 		1, 1, totalRows, 1, &ok);
 	if (ok) {
 		ui.appTable->removeRow(rowId - 1);
+		notSave = (ui.appTable->rowCount() > 0);
 	}
 }
 
@@ -84,5 +88,184 @@ void QtWidgetsApplication::deleteAll() {
 
 	if (status == QMessageBox::Yes) {
 		ui.appTable->setRowCount(0); 
+		notSave = false;
 	}
+}
+
+void QtWidgetsApplication::ifNew() {
+	if (!checkIfSave()) return;
+	ui.appTable->setRowCount(0);
+	clearfield();
+	notSave = false;
+
+}
+
+void customMessageHandler(QtMsgType type, const QMessageLogContext& context, const QString& msg) {
+	QFile file("debug.txt");
+	if (file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+		QTextStream stream(&file);
+		stream << msg << "\n";
+	}
+}
+
+bool connectDB(QSqlDatabase& db) {
+	qInstallMessageHandler(customMessageHandler);
+
+	if (QSqlDatabase::contains("contact_db")) {
+		db = QSqlDatabase::database("contact_db");
+		if (db.isOpen()) return true;
+		return db.open();
+	}
+
+	db = QSqlDatabase::addDatabase("QODBC", "contact_db");
+	QString dsn = "DRIVER={MySQL ODBC 26.7 Unicode Driver};"
+		"SERVER=127.0.0.1;"
+		"DATABASE=contact_db;"
+		"USER=root;"
+		"PASSWORD=;"
+		"PORT=3306;";
+	db.setDatabaseName(dsn);
+
+	if (!db.open()) {
+		qDebug() << "DB Connection Error:" << db.lastError().text();
+		return false;
+	}
+
+	qDebug() << "Database connection established!";
+	return true;
+}
+
+void QtWidgetsApplication::writeServer() {
+	int totalRows = ui.appTable->rowCount();
+
+	if (totalRows == 0) {
+		QMessageBox::information(this, tr("Write to Server"), tr("No records in table to save!"));
+		return;
+	}
+
+	int status = QMessageBox::question(this, tr("Save Records?"),
+		tr("Are you sure you want to write all records on server?"),
+		QMessageBox::Yes | QMessageBox::No);
+
+	if (status != QMessageBox::Yes) return;
+
+	QSqlDatabase db;
+	if (!connectDB(db)) {
+		QMessageBox::critical(this, tr("Database Error"),
+			tr("Could not connect to server!\nCheck debug.txt for logs."));
+		return;
+	}
+
+	QSqlQuery createTableQuery(db);
+	QString createTableSQL =
+		"CREATE TABLE IF NOT EXISTS contacts ("
+		"id INT AUTO_INCREMENT PRIMARY KEY, "
+		"name VARCHAR(255), "
+		"boc VARCHAR(100), "
+		"phone_number VARCHAR(50)"
+		");";
+	if (!createTableQuery.exec(createTableSQL)) {
+		QMessageBox::critical(this, tr("Database Error"),
+			tr("Failed to create table:\n") + createTableQuery.lastError().text());
+		return;
+	}
+
+	db.transaction();
+
+	
+	bool hasError = false;
+	QString lastSQLError = "";
+
+	for (int row = 0; row < totalRows; ++row) {
+		QTableWidgetItem* nameItem = ui.appTable->item(row, 0);
+		QTableWidgetItem* phoneItem = ui.appTable->item(row, 2);
+		QTableWidgetItem* bOc = ui.appTable->item(row, 1);
+
+		if (!nameItem || !bOc || !phoneItem) continue;
+
+		QString fullName = nameItem->text().trimmed();
+		QString phone = phoneItem->text().trimmed();
+		QString boc = bOc->text().trimmed();
+
+		QSqlQuery query(db);
+		query.prepare("INSERT INTO contacts (name, boc, phone_number) VALUES (:Name, :boc, :phone)");
+		query.bindValue(":Name", fullName);
+		query.bindValue(":boc", boc);
+		query.bindValue(":phone", phone);
+
+		if (!query.exec()) {
+			lastSQLError = query.lastError().text();
+			qDebug() << "Insert error at row" << row << ":" << query.lastError().text();
+			hasError = true;
+			break;
+		}
+	}
+
+	if (!hasError) {
+		db.commit();
+		notSave = false;
+		QMessageBox::information(this, tr("RMS System"), tr("All records wrote to server successfully!"));
+	}
+	else {
+		db.rollback(); 
+		QMessageBox::critical(this, tr("Database Error"),
+			tr("Failed to write records to server.\n\nError details:\n") + lastSQLError);
+	
+	}
+}
+
+void QtWidgetsApplication::openFile() {
+	if (!checkIfSave()) return;
+	QString fileName = QFileDialog::getOpenFileName(
+		this,
+		tr("Open Contacts File"),
+		"",
+		tr("CSV Files (*.csv);;Text Files (*.txt);;All Files (*)")
+	);
+	if (fileName.isEmpty()) return;
+	QFile file(fileName);
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+		QMessageBox::critical(this, tr("File Error"), tr("Could not open file for reading!"));
+		return;
+	}
+	QTextStream in(&file);
+	ui.appTable->setRowCount(0);
+	clearfield();
+	while (!in.atEnd()) {
+		QString line = in.readLine().trimmed();
+		if (line.isEmpty()) continue;
+
+		QStringList parts = line.split(',');
+		if (parts.size() >= 3) {
+			int row = ui.appTable->rowCount();
+			ui.appTable->insertRow(row);
+			ui.appTable->setItem(row, 0, new QTableWidgetItem(parts[0].trimmed()));
+			ui.appTable->setItem(row, 1, new QTableWidgetItem(parts[1].trimmed()));
+			ui.appTable->setItem(row, 2, new QTableWidgetItem(parts[2].trimmed()));
+		}
+	}
+
+	file.close();
+	notSave = true;
+	QMessageBox::information(this, tr("RMS System"), tr("File loaded successfully!"));
+}
+
+bool QtWidgetsApplication::checkIfSave() {
+	if (notSave && ui.appTable->rowCount() > 0) {
+		QMessageBox::StandardButton resBtn = QMessageBox::question(
+			this,
+			tr("Unsaved Changes"),
+			tr("You have unsaved changes. Do you want to save them to the server first?"),
+			QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
+			QMessageBox::Save
+		);
+
+		if (resBtn == QMessageBox::Save) {
+			writeServer();
+			if (notSave) return false;
+		}
+		else if (resBtn == QMessageBox::Cancel) return false;
+	}
+
+	return true;
 }
