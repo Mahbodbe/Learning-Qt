@@ -63,3 +63,4 @@ Learning-Qt/
 ## 👤 نویسنده
 
 * **مهبد بمانی‌چم** — [@Mahbodbe](https://github.com/Mahbodbe)
+<!-- fa update final -->
