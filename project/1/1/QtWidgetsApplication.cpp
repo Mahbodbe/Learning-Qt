@@ -6,6 +6,110 @@ QtWidgetsApplication::QtWidgetsApplication(QWidget *parent)
 
     ui.setupUi(this);
 	model = new QStandardItemModel(this);
+	QString modernStyle = R"(
+        QWidget {
+            font-family: 'Segoe UI', 'Vazirmatn', sans-serif;
+            font-size: 10pt;
+            background-color: #f8f9fa;
+            color: #1c1c1c;
+        }
+
+        QLineEdit, QDateEdit {
+            background-color: #ffffff;
+            border: 1px solid #d1d1d1;
+            border-radius: 6px;
+            padding: 6px 10px;
+            selection-background-color: #0067c0;
+        }
+
+        QLineEdit:hover, QDateEdit:hover {
+            border: 1px solid #868686;
+        }
+
+        QLineEdit:focus, QDateEdit:focus {
+            border: 2px solid #0067c0;
+            padding: 5px 9px;
+        }
+
+        QPushButton {
+            background-color: #ffffff;
+            border: 1px solid #d1d1d1;
+            border-radius: 6px;
+            padding: 6px 16px;
+            font-weight: 500;
+        }
+
+        QPushButton:hover {
+            background-color: #f3f3f3;
+            border-color: #c7c7c7;
+        }
+
+        QPushButton:pressed {
+            background-color: #e5e5e5;
+        }
+
+        QPushButton#saveButton {
+            background-color: #0067c0;
+            color: #ffffff;
+            border: none;
+            font-weight: 600;
+        }
+
+        QPushButton#saveButton:hover {
+            background-color: #1875d1;
+        }
+
+        QPushButton#saveButton:pressed {
+            background-color: #005aab;
+        }
+
+        QTableWidget {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            gridline-color: #f0f0f0;
+            selection-background-color: #e5f3ff;
+            selection-color: #000000;
+            outline: none;
+        }
+
+        QHeaderView::section {
+            background-color: #f3f3f3;
+            color: #404040;
+            padding: 8px;
+            border: none;
+            border-bottom: 2px solid #e0e0e0;
+            font-weight: 600;
+        }
+
+        QToolBar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            spacing: 6px;
+            padding: 4px;
+        }
+
+        QToolButton {
+            border-radius: 4px;
+            padding: 4px;
+        }
+
+        QToolButton:hover {
+            background-color: #f0f0f0;
+        }
+
+        QMenuBar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        QMenuBar::item:selected {
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+    )";
+
+	this->setStyleSheet(modernStyle);
 	
 	signal();
 }
