@@ -7,6 +7,9 @@ QtWidgetsApplication::QtWidgetsApplication(QWidget *parent)
     ui.setupUi(this);
 	model = new QStandardItemModel(this);
 	QString modernStyle = R"(
+		MainWindow {
+			border: 1px solid #d1d1d1;
+		}
         QWidget {
             font-family: 'Segoe UI', 'Vazirmatn', sans-serif;
             font-size: 10pt;
