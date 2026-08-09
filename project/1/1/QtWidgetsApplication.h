@@ -45,4 +45,6 @@ private slots:
     void saveButtonClicked();
     void aboutDialog();
     void clearfield();
+    void deleteRecord();
+    void deleteAll();
 };

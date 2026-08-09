@@ -6,7 +6,7 @@ QtWidgetsApplication::QtWidgetsApplication(QWidget *parent)
 
     ui.setupUi(this);
 	model = new QStandardItemModel(this);
-	//ui.appTable->setModel(model);
+	
 	signal();
 }
 
@@ -18,12 +18,25 @@ void QtWidgetsApplication::signal() {
 	//connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(aboutDialog()));
 	//connect(ui.actionSave, SIGNAL(triggered()), this, SLOT(saveButtonClicked()));
 	//connect(ui.saveButton, SIGNAL(clicked()), this, SLOT(saveButtonClicked()));
+	
 	connect(ui.actionAbout, &QAction::triggered, this, &QtWidgetsApplication::aboutDialog);
 	connect(ui.actionSave, &QAction::triggered, this, &QtWidgetsApplication::saveButtonClicked);
 	connect(ui.saveButton, &QPushButton::clicked, this, &QtWidgetsApplication::saveButtonClicked);
+	connect(ui.clearAllButton, &QPushButton::clicked, this, &QtWidgetsApplication::deleteAll);
+	connect(ui.actionDeleteRecord, &QAction::triggered, this, &QtWidgetsApplication::deleteRecord);
+	connect(ui.actionDeleteAll, &QAction::triggered, this, &QtWidgetsApplication::deleteAll);
+	
 }
 
 void QtWidgetsApplication::saveButtonClicked() {
+
+	if (ui.nameLineEdit->text().trimmed().isEmpty() || ui.phoneNumberLineEdit->text().trimmed().isEmpty()) {
+		QMessageBox::warning(this,
+			tr("Validation Error"),
+			tr("Please fill in all required fields!"));
+		return; 
+	}
+
 	int row = ui.appTable->rowCount();
 	ui.appTable->insertRow(row);
 	ui.appTable->setItem(row, 0, new QTableWidgetItem(ui.nameLineEdit->text()));
@@ -43,4 +56,33 @@ void QtWidgetsApplication::clearfield() {
 	ui.phoneNumberLineEdit->setText("");
 	QDate dateOfBirth(1980, 1, 1);
 	ui.dateEdit->setDate(dateOfBirth);
+}
+
+void QtWidgetsApplication::deleteRecord() {
+	int totalRows = ui.appTable->rowCount();
+
+	if (totalRows == 0) {
+		QMessageBox::information(this, tr("Delete Record"), tr("No records to delete."));
+		return;
+	}
+
+	bool ok;
+	int rowId = QInputDialog::getInt(this, tr("Select Row to delete"),
+		tr("Please enter Row ID of record (e.g. 1):"),
+		1, 1, totalRows, 1, &ok);
+	if (ok) {
+		ui.appTable->removeRow(rowId - 1);
+	}
+}
+
+void QtWidgetsApplication::deleteAll() {
+	if (ui.appTable->rowCount() == 0) return;
+
+	int status = QMessageBox::question(this, tr("Delete Records?"),
+		tr("Are you sure you want to delete all records?"),
+		QMessageBox::Yes | QMessageBox::No);
+
+	if (status == QMessageBox::Yes) {
+		ui.appTable->setRowCount(0); 
+	}
 }
