@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../Getting Started with Qt 5/5th/6/window_logo.png</normaloff>../../../Getting Started with Qt 5/5th/6/window_logo.png</iconset>
+    <normaloff>../../chapters/05-mainwindow-resources/06-word-processor-full/window_logo.png</normaloff>../../chapters/05-mainwindow-resources/06-word-processor-full/window_logo.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
@@ -83,6 +83,9 @@
       <item row="1" column="1">
        <widget class="QDateEdit" name="dateEdit">
         <property name="frame">
+         <bool>true</bool>
+        </property>
+        <property name="calendarPopup">
          <bool>true</bool>
         </property>
        </widget>
@@ -151,7 +154,7 @@
       </column>
       <column>
        <property name="text">
-        <string>New Column</string>
+        <string>ِDate of Birth</string>
        </property>
       </column>
       <column>
@@ -266,7 +269,7 @@
   <action name="actionNew">
    <property name="icon">
     <iconset>
-     <normaloff>../../../Getting Started with Qt 5/5th/6/new.png</normaloff>../../../Getting Started with Qt 5/5th/6/new.png</iconset>
+     <normaloff>../../chapters/05-mainwindow-resources/06-word-processor-full/new.png</normaloff>../../chapters/05-mainwindow-resources/06-word-processor-full/new.png</iconset>
    </property>
    <property name="text">
     <string>New</string>
@@ -281,7 +284,7 @@
   <action name="actionOpen">
    <property name="icon">
     <iconset>
-     <normaloff>../../../Getting Started with Qt 5/5th/6/open.png</normaloff>../../../Getting Started with Qt 5/5th/6/open.png</iconset>
+     <normaloff>../../chapters/05-mainwindow-resources/06-word-processor-full/open.png</normaloff>../../chapters/05-mainwindow-resources/06-word-processor-full/open.png</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -293,7 +296,7 @@
   <action name="actionQuit">
    <property name="icon">
     <iconset>
-     <normaloff>../../../Getting Started with Qt 5/5th/6/close.png</normaloff>../../../Getting Started with Qt 5/5th/6/close.png</iconset>
+     <normaloff>../../chapters/05-mainwindow-resources/06-word-processor-full/close.png</normaloff>../../chapters/05-mainwindow-resources/06-word-processor-full/close.png</iconset>
    </property>
    <property name="text">
     <string>Quit</string>
@@ -319,7 +322,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../Getting Started with Qt 5/5th/6/clear.png</normaloff>../../../Getting Started with Qt 5/5th/6/clear.png</iconset>
+     <normaloff>../../chapters/05-mainwindow-resources/06-word-processor-full/clear.png</normaloff>../../chapters/05-mainwindow-resources/06-word-processor-full/clear.png</iconset>
    </property>
    <property name="text">
     <string>Delete all</string>
