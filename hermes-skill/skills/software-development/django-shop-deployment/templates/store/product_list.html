@@ -1,0 +1,92 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block title %}محصولات | مهگل رزین{% endblock %}
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-gradient">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <div class="flex flex-col md:flex-row items-center gap-8">
+      <div class="flex-1 text-center md:text-right">
+        <h1 class="text-3xl md:text-5xl font-extrabold text-violet-900 leading-tight">
+          محصولات دست‌ساز<br><span class="text-violet-600">از جنس هنر و عشق</span>
+        </h1>
+        <p class="mt-4 text-gray-600 text-lg max-w-lg mx-auto md:mx-0">هر قطعه از محصولات رزینی ما، با ظرافت دست ساخته شده تا زیبایی را به زندگی شما هدیه دهد.</p>
+        <div class="mt-8 flex flex-wrap gap-3 justify-center md:justify-start">
+          <a href="#products" class="inline-flex items-center gap-2 px-6 py-3 bg-violet-600 text-white rounded-full font-medium hover:bg-violet-700 transition shadow-lg shadow-violet-200">
+            مشاهده محصولات<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </a>
+          <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-violet-700 rounded-full font-medium border border-violet-200 hover:border-violet-300 transition">درباره ما</a>
+        </div>
+      </div>
+      <div class="flex-1 flex justify-center">
+        <div class="relative">
+          <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-violet-200 via-violet-100 to-amber-100 flex items-center justify-center"><span class="text-8xl opacity-20">🌸</span></div>
+          <div class="absolute -top-4 -right-4 w-16 h-16 bg-amber-200 rounded-full opacity-40 animate-pulse"></div>
+          <div class="absolute -bottom-2 -left-2 w-12 h-12 bg-violet-300 rounded-full opacity-30 animate-pulse" style="animation-delay: 1s;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Category Filter -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8" id="products">
+  <div class="flex flex-wrap items-center gap-3 py-4 border-b border-gray-100">
+    <span class="text-sm font-medium text-gray-500 ml-2">دسته‌بندی:</span>
+    <a href="?type=all" class="px-4 py-1.5 rounded-full text-sm font-medium transition {% if active_type == 'all' or not active_type %}bg-violet-600 text-white shadow-sm{% else %}bg-gray-100 text-gray-600 hover:bg-gray-200{% endif %}">همه</a>
+    {% for t in types %}
+    <a href="?type={{ t.name|urlencode }}" class="px-4 py-1.5 rounded-full text-sm font-medium transition {% if active_type == t.name %}bg-violet-600 text-white shadow-sm{% else %}bg-gray-100 text-gray-600 hover:bg-gray-200{% endif %}">{{ t.name }}</a>
+    {% endfor %}
+  </div>
+</section>
+<!-- Product Grid -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  {% if products %}
+  <div class="product-grid">
+    {% for p in products %}
+    <div class="product-card bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+      <div class="relative aspect-square overflow-hidden bg-gradient-to-br from-violet-50 to-gray-50">
+        {% if p.primary_image %}
+        <img src="{{ p.primary_image.image.url }}" alt="{{ p.name }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy">
+        {% else %}
+        <div class="w-full h-full flex items-center justify-center text-gray-300"><svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+        {% endif %}
+        <div class="absolute top-3 right-3 flex flex-col gap-1.5">
+          {% if p.stock > 0 %}<span class="px-2 py-0.5 bg-emerald-500 text-white text-xs rounded-full font-medium">موجود</span>{% else %}<span class="px-2 py-0.5 bg-rose-500 text-white text-xs rounded-full font-medium">ناموجود</span>{% endif %}
+        </div>
+      </div>
+      <div class="p-4">
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <span class="text-xs text-violet-500 font-medium">{{ p.type.name }}</span>
+            <h3 class="font-semibold text-gray-800 mt-0.5 leading-tight">{{ p.name }}</h3>
+          </div>
+          <span class="text-xs text-gray-400 bg-gray-50 px-2 py-0.5 rounded">#{{ p.code }}</span>
+        </div>
+        <p class="text-lg font-bold text-violet-700 mt-2">{{ p.price }} <span class="text-xs font-normal text-gray-500">تومان</span></p>
+        <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-50">
+          <p class="text-xs text-gray-500">موجودی: <span class="font-medium {% if p.stock > 0 %}text-emerald-600{% else %}text-rose-600{% endif %}">{{ p.stock }}</span></p>
+          <div class="flex gap-1.5">
+            <a href="{% url 'store:product_detail' p.code %}" class="px-3 py-1.5 text-xs font-medium text-violet-600 hover:bg-violet-50 rounded-lg transition">جزئیات</a>
+            <button onclick="sendToBot({{ p.code }})" class="px-3 py-1.5 text-xs font-medium bg-violet-600 text-white hover:bg-violet-700 rounded-lg transition shadow-sm">سفارش</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center py-20"><div class="text-6xl mb-4 opacity-30">🎨</div><p class="text-gray-500 text-lg">محصولی یافت نشد.</p><a href="/" class="inline-block mt-4 text-violet-600 hover:text-violet-700 font-medium">مشاهده همه محصولات</a></div>
+  {% endif %}
+</section>
+<!-- Newsletter / CTA -->
+<section class="bg-gradient-to-r from-violet-600 to-violet-800 mt-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+    <h2 class="text-2xl md:text-3xl font-bold text-white">محصول خاصی مدنظرته؟</h2>
+    <p class="mt-2 text-violet-200 max-w-lg mx-auto">می‌تونی از طریق ربات تلگرام یا ارتباط با ما، سفارش اختصاصی خودت رو ثبت کنی.</p>
+    <div class="mt-6 flex flex-wrap gap-3 justify-center">
+      <a href="#" class="px-6 py-3 bg-amber-400 text-violet-900 rounded-full font-semibold hover:bg-amber-300 transition shadow-lg">ارتباط با ما</a>
+      <a href="https://t.me/mahgolresin" class="px-6 py-3 bg-white/10 text-white rounded-full font-medium border border-white/20 hover:bg-white/20 transition">تلگرام</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
